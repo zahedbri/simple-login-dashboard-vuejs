@@ -1,10 +1,12 @@
 <template>
-    <div class="row s12">
-        <div v-if="this.$route.name=='Dashboard'" class="collection with-header col s12">
-            <h4 class="collection-header">All Users</h4>
-            <router-link v-for="item in allNames" :key="item.id" :to="{ name: 'Profile', params: { user: item } }" class="collection-item" >{{item.name}}</router-link>
+    <div>
+        <div v-if="this.$route.name=='Dashboard'" class="card">
+            <div class="collection with-header">
+                <h4 class="collection-header">List of all users</h4>
+                <router-link v-for="item in allNames" :key="item.id" :to="{ name: 'Profile', params: { user: item } }" class="collection-item" >{{item.name}}</router-link>
+            </div>
         </div>
-        <router-view v-else class="col s12"></router-view>
+        <router-view v-else class="center"></router-view>
     </div>
 </template>
 
@@ -27,3 +29,10 @@
         },
     }
 </script>
+
+<style>
+.card{
+    max-width: 500px;
+    margin: 0 auto;
+}
+</style>

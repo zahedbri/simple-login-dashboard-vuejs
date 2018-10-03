@@ -4,12 +4,17 @@
             <nav>
                 <div class="nav-wrapper teal">
                     <a v-if="this.$route.name=='Dashboard'" class="brand-logo"><i class="material-icons">dashboard</i>Dashboard</a>
-                    <a v-else class="brand-logo"><i class="material-icons">person</i>Profile</a>                
-                    <a class="logout-btn right hide-on-med-and-down" v-on:click="logout()"><i class="material-icons">settings_power</i></a>
+                    <a v-else class="brand-logo"><i class="material-icons">person</i>Profile</a>
+                    <a class="logout-btn right" v-on:click="logout()"><i class="material-icons">settings_power</i></a>
                 </div>
             </nav>
         </div>
 
+        <div v-if="this.$route.name=='Dashboard'">
+            <h4 v-if="role" class="center teal-text">Welcome Admin!</h4>
+            <h4 v-else class="center teal-text">Welcome Developer!</h4>
+        </div>
+        
         <div class="center-align">
             <CircularLoader v-if="loading"/>
             <ListItems v-else :users="users"/>
@@ -25,7 +30,7 @@ import CircularLoader from '@/components/CircularLoader'
 
 export default {
     name: 'Dashboard',
-    props: ['testprop'],
+    props: ['role'],
     components: {
         ListItems,
         CircularLoader

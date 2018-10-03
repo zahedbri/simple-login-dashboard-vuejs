@@ -5,18 +5,16 @@
         <h2 class="teal-text">Login</h2>
         <form class="center-align" @submit.prevent="attemptLogin">
           <div class="inputs">
-
-
-            <!-- <div class="input-field col s12">
-              <select name="role" id="role">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="dev">developer</option>
-                <option value="admin">admin</option>
-                <label>Select role</label>
-              </select>
-            </div> -->
-
-
+            <div class="switch">
+              <label for="role">Please select role</label><br>
+              <label>
+                Developer
+                <input type="checkbox" v-model="role">
+                <span class="lever"></span>
+                Admin
+              </label>
+            </div>
+            
             <label for="username">
               Enter your username
             </label>
@@ -40,16 +38,17 @@ export default {
   name: 'Login',
   data () {
     return {
-      role: null,
+      role: false,
       username: null,
       password: null,
       feedback: null,
-      testprop: false,
     }
   },
   methods: {
     attemptLogin () {
-      if (this.username==this.$parent.mockAccountDev.username && this.password==this.$parent.mockAccountDev.password) {
+      var devLogin = (this.username==this.$parent.mockAccountDev.username && this.password==this.$parent.mockAccountDev.password)
+      var adminLogin = (this.username==this.$parent.mockAccountAdmin.username && this.password==this.$parent.mockAccountAdmin.password)      
+      if ( (devLogin && !this.role) || (adminLogin && this.role) ) {
         var userObj = {
           username: this.username,
           password: this.password
@@ -57,8 +56,7 @@ export default {
         localStorage.setItem('authObj', JSON.stringify(userObj))
         // var x = JSON.parse(localStorage.getItem('authObj'))
         // console.log(x.username);
-        this.testprop = true;
-        this.$router.push({ name: 'Dashboard', params: {testprop: this.testprop} })
+        this.$router.push({ name: 'Dashboard', params: {role: this.role} })
       }
       else if (! this.username && !this.password) {
         this.feedback = 'Enter name & password to login'
@@ -95,5 +93,8 @@ export default {
 }
 .inputs input{
   max-height: 20px;
+}
+.switch{
+  margin-bottom: 20px;
 }
 </style>
