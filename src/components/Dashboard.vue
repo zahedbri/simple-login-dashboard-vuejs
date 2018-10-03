@@ -1,19 +1,18 @@
 <template>
     <div class="dashboard">
-        <nav>
-            <div class="nav-wrapper teal">
-                <a class="brand-logo"><i class="material-icons">dashboard</i>Dashboard</a>
-                <a class="logout-btn right hide-on-med-and-down" v-on:click="logout()"><i class="material-icons">settings_power</i></a>
-            </div>
-        </nav>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper teal">
+                    <a v-if="this.$route.name=='Dashboard'" class="brand-logo"><i class="material-icons">dashboard</i>Dashboard</a>
+                    <a v-else class="brand-logo"><i class="material-icons">person</i>Profile</a>                
+                    <a class="logout-btn right hide-on-med-and-down" v-on:click="logout()"><i class="material-icons">settings_power</i></a>
+                </div>
+            </nav>
+        </div>
 
         <div class="center-align">
             <CircularLoader v-if="loading"/>
-            <div v-else class="container">
-                <div class="card">
-                    <ListItems :users="users"/>
-                </div>
-            </div>
+            <ListItems v-else :users="users"/>
         </div>
     </div>
 </template>

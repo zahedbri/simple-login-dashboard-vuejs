@@ -1,12 +1,11 @@
 <template>
-    <div class="container">
-        <div class="collection with-header">
+    <div class="row s12">
+        <div v-if="this.$route.name=='Dashboard'" class="collection with-header col s12">
             <h4 class="collection-header">All Users</h4>
-            <router-link v-for="item in allNames" :to="{ name: 'Profile', params: { user: item } }" class="collection-item">{{item.name}}</router-link>
+            <router-link v-for="item in allNames" :key="item.id" :to="{ name: 'Profile', params: { user: item } }" class="collection-item" >{{item.name}}</router-link>
         </div>
-        <router-view></router-view>
+        <router-view v-else class="col s12"></router-view>
     </div>
-
 </template>
 
 <script>
