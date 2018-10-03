@@ -38,7 +38,16 @@ export default new Router({
         {
           path: "/Profile",
           name: "Profile",
-          component: Profile
+          component: Profile,
+          props: true,
+          beforeEnter: (to, from, next) => {
+            if(to.params.user){
+              next()
+            }
+            else{
+              next({name: 'Dashboard'})
+            }
+          }
         },
       ],
       beforeEnter: (to, from, next) => {
