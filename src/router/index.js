@@ -38,7 +38,8 @@ export default new Router({
         {
           path: "/Profile",
           name: "Profile",
-          component: Profile
+          component: Profile,
+          props: true,
         },
       ],
       beforeEnter: (to, from, next) => {

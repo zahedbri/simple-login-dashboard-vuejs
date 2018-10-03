@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     attemptLogin () {
-      if (this.username==this.$parent.mockAccount.username && this.password==this.$parent.mockAccount.password) {
+      if (this.username==this.$parent.mockAccountDev.username && this.password==this.$parent.mockAccountDev.password) {
         var userObj = {
           username: this.username,
           password: this.password

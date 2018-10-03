@@ -1,19 +1,18 @@
 <template>
-    <div class="collection with-header">
-        <h4 class="collection-header">All Users</h4>
-        <a v-on:click="toProfile(item)" class="collection-item" v-for="item in allNames">{{item.name}}</a>
+    <div class="container">
+        <div class="collection with-header">
+            <h4 class="collection-header">All Users</h4>
+            <router-link v-for="item in allNames" :to="{ name: 'Profile', params: { user: item } }" class="collection-item">{{item.name}}</router-link>
+        </div>
+        <router-view></router-view>
     </div>
+
 </template>
 
 <script>
     export default {
         name: 'ListItems',
         props: ["users"],
-        methods: {
-            toProfile(item){
-                this.$router.push({ name: 'Profile', params: { item: this.item } })
-            }
-        },
         data (){
             return {
                 allNames: [],
