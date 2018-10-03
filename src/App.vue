@@ -12,8 +12,14 @@ export default {
   name: 'App',
   data(){
     return{
-      mockAccount: {
-          username: "adnan",
+      mockAccountDev: {
+          role: 'developer',
+          username: "dev",
+          password: "pass"
+      },
+      mockAccountAdmin: {
+          role: 'admin',
+          username: "admin",
           password: "pass"
       }
     }

@@ -3,52 +3,47 @@
         <nav>
             <div class="nav-wrapper teal">
                 <a class="brand-logo"><i class="material-icons">dashboard</i>Dashboard</a>
-                <a class="right hide-on-med-and-down" v-on:click="logout()"><i class="material-icons">settings_power</i>Logout</a>
+                <a class="logout-btn right hide-on-med-and-down" v-on:click="logout()"><i class="material-icons">settings_power</i></a>
             </div>
         </nav>
 
         <div class="center-align">
-            <div v-if="loading" class="loader">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <CircularLoader v-if="loading"/>
             <div v-else class="container">
-                <div class="card teal">
-                    <p class="teal">text</p>
+                <div class="card">
+                    <ListItems :users="users"/>
                 </div>
             </div>
         </div>
-
-
     </div>
 </template>
 
 <script>
 import userApi from '@/services/api/user'
+import ListItems from '@/components/ListItems'
+import CircularLoader from '@/components/CircularLoader'
 
 
 export default {
     name: 'Dashboard',
     props: ['testprop'],
+    components: {
+        ListItems,
+        CircularLoader
+    },
+    methods: {
+        logout(){
+            localStorage.clear()
+            this.$router.push({ name: 'Login' })
+        }
+    },
     data (){
         return {
             loading: true,
             users: []
         };
     },
-    created(){
+    created (){
         // this will return a promise
         userApi.getDelayedUsers()
             .then(users => {
@@ -60,13 +55,7 @@ export default {
                 console.log(this.users.data)
                 this.loading = false
             })
-    },
-    methods: {
-        logout(){
-            localStorage.clear()
-            this.$router.push({ name: 'Login' })
-        }
-    }
+    },   
 }
 </script>
 
@@ -78,5 +67,9 @@ export default {
 
 .loader{
     margin-top: 100px;
+}
+
+.logout-btn{
+    margin-right: 20px;
 }
 </style>
